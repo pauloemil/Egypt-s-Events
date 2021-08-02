@@ -1,0 +1,80 @@
+<%- include('../partials/header') -%> <%- include('../partials/navbar') -%><%-
+include('../partials/pageHeader.ejs') -%>
+<div class="container p-5">
+  <!-- <h2>Create Event</h2> -->
+  <% if (errors){%> <% errors.forEach((error) =>{%>
+  <div class="alert alert-danger" role="alert"><%= error.msg%></div>
+  <%})%> <%}%>
+  <form action="/event/create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        name="title"
+        type="text"
+        class="form-control"
+        id="titleTxt"
+        placeholder="Title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="shortDescription" class="form-label">Short Description</label>
+      <textarea
+        name="shortDescription"
+        class="form-control"
+        placeholder="Short description"
+        aria-label="With textarea"
+        required
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        name="description"
+        class="form-control"
+        placeholder="Description"
+        aria-label="With textarea"
+        required
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input
+        name="location"
+        type="text"
+        class="form-control"
+        id="locationTxt"
+        required
+        placeholder="Location"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input
+        type="date"
+        name="date"
+        class="form-control"
+        id="dateTxt"
+        placeholder="Date"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload image</label>
+      <input
+        required
+        class="form-control"
+        name="imageFile"
+        type="file"
+        id="formFile"
+      />
+    </div>
+    <div class="d-flex">
+      <div class="ms-auto">
+        <button class="btn btn-primary">Submit</button>
+        <!-- <button class="btn btn-secondary">Clear</button> -->
+      </div>
+    </div>
+  </form>
+</div>
+<%- include('../partials/footer') -%>
