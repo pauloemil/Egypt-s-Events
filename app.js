@@ -7,6 +7,7 @@ const flash = require("connect-flash");
 
 //connect to db
 //testing limits
+//asdasd
 const db = require("./config/database");
 // const schemaEvents = require("");
 // Brings EJS engine
