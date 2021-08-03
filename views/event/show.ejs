@@ -1,0 +1,30 @@
+<%- include('../partials/header') -%> <%- include('../partials/navbar') -%>
+
+
+<div class="container px-4 px-lg-5 mt-5" style="margin-bottom: 21%">
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card">
+        <!-- <div class="card-header">Featured</div> -->
+        <div class="card-body">
+          <img class="card-img-top mb-5" src="data:image/<%=event.img.contentType%>;base64,
+            <%=event.img.data.toString('base64')%>" alt="..." /> </a>
+          <h2 class="card-title"><%= event.title%></h2>
+          <span class="badge bg-secondary"
+            ><%= event.date.toDateString()%></span
+          >
+          <h4 class="card-text"><%= event.description%></h4>
+          <p class="card-text"><%= event.location%></p>
+
+          <form method="post" action="/event/delete/<%=event._id%>">
+            <a href="/event/edit/<%=event._id%>" class="btn btn-primary"
+              >Edit</a
+            >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') -%>
