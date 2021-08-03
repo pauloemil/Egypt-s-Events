@@ -4,8 +4,9 @@ const eventRouter = require("./routes/eventRouter");
 const session = require("express-session");
 const flash = require("connect-flash");
 // const bodyParser = require("body-parser");
-//testing limits
+
 //connect to db
+//testing limits
 const db = require("./config/database");
 // const schemaEvents = require("");
 // Brings EJS engine
