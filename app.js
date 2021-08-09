@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
 const eventRouter = require("./routes/eventRouter");
+const userRouter = require("./routes/userRoutes");
 const session = require("express-session");
 const flash = require("connect-flash");
-// const bodyParser = require("body-parser");
+const passport = require("passport");
+const passportSetup = require("./config/Passport-setup");
+const User = require("./models/users");
 
 //connect to db
 //testing limits
@@ -33,11 +36,23 @@ app.use(
 );
 app.use(flash());
 
+// bring passport
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//store user object
+
+app.get("*", (req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 // Brings events routes
 app.use("/Event", eventRouter);
-
+app.use("/User", userRouter);
 app.get("/", (req, res) => {
-  res.send("!");
+  res.send("this is the root hehe ♥");
 });
 
 app.listen(3000, () => {

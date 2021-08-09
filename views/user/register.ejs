@@ -1,0 +1,63 @@
+<%- include('../partials/header') -%> <%- include('../partials/navbar') -%> <%-
+include('../partials/pageHeader.ejs') -%>
+
+<div class="container p-5">
+  <%- include('../partials/alerts') -%>
+  <form method="post" action="/user/register">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Username</span>
+      <input
+        required
+        name="username"
+        type="text"
+        class="form-control"
+        placeholder="Username"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Email</span>
+      <input
+        required
+        name="email"
+        type="email"
+        class="form-control"
+        placeholder="Email"
+        aria-label="Email"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Password</span>
+      <input
+        required
+        name="password"
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        aria-label="Password"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Confirm Password</span>
+      <input
+        required
+        name="confirmPassword"
+        type="password"
+        class="form-control"
+        placeholder="Confirm Password"
+        aria-label="Confirm Password"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="d-flex">
+      <div class="ms-auto">
+        <button class="btn btn-dark">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') -%>

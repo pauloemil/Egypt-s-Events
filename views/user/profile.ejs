@@ -1,0 +1,8 @@
+<%- include('../partials/header') -%> <%- include('../partials/navbar') -%>
+
+<div class="container px-4 px-lg-5 mt-5" style="margin-bottom: 21%">
+  <%- include('../partials/alerts') -%> <% if(locals.user){ %>
+  <h1>welcome back, <%=user.username%></h1>
+  <%}%>
+</div>
+<%- include('../partials/footer') -%>

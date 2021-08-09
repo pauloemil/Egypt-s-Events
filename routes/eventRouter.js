@@ -22,6 +22,14 @@ const upload = multer({
   storage: storage,
   limits: { filesize: 1024 * 1024 * 5 },
 });
+
+//middlewhere for authintication
+isAuth = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
+  req.flash("error", "Login first, Please!");
+  res.redirect("/user/login");
+};
+
 router.get("/", (req, res) => {
   Event.find({}, (err, events) => {
     if (err) console.log(err);
@@ -34,12 +42,13 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/create", (req, res) => {
+router.get("/create", isAuth, (req, res) => {
   res.render("event/create.ejs", { errors: req.flash("errors") });
 });
 
 router.post(
   "/create",
+  isAuth,
   upload.single("imageFile"),
   [
     check("title")
@@ -89,7 +98,7 @@ router.post(
   }
 );
 
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id", isAuth, (req, res) => {
   Event.findOne({ _id: req.params.id }, (err, event) => {
     if (err) console.log(err);
     else
@@ -102,7 +111,7 @@ router.get("/edit/:id", (req, res) => {
   });
 });
 
-router.post("/delete/:id", (req, res) => {
+router.post("/delete/:id", isAuth, (req, res) => {
   Event.findOneAndDelete({ _id: req.params.id }, (err) => {
     if (err) console.log(err);
     else {
@@ -113,6 +122,7 @@ router.post("/delete/:id", (req, res) => {
 });
 router.post(
   "/edit/:id",
+  isAuth,
 
   [
     check("title")
