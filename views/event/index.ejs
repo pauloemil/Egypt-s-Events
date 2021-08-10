@@ -21,7 +21,7 @@ include('../partials/pageHeader.ejs') -%>
         
         <div class="card h-100">
           <!-- Product image-->
-          <a href="/event/<%= event.id%>">
+          <a href="/event/show/<%= event.id%>">
             <img class="card-img-top mb-1" src="data:image/<%=event.img.contentType%>;base64,
             <%=event.img.data.toString('base64')%>" alt="..." /> </a>
           <!-- Product details-->
@@ -48,7 +48,25 @@ include('../partials/pageHeader.ejs') -%>
 
       <%})%>
     </div>
+    <div class="row">
+      <div class="col-12 mt-2 mb-4">
+        <nav aria-label="Event's page navigation">
+          <ul class="pagination justify-content-center">
+            
+            <% for(let i = 1; i <= Math.ceil(total/size); i++) {%>
+              <%if (i == pageNum){%>
+                <li class="page-item active"><a class="page-link" href="/event/<%= i%>"><%= i%></a></li>
+                <%}else {%>
+                  <li class="page-item"><a class="page-link" href="/event/<%= i%>"><%= i%></a></li>
+            <%}}%>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
   </div>
+  
 </section>
 
 <%- include('../partials/footer') -%>

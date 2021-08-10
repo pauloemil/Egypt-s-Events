@@ -30,15 +30,31 @@ isAuth = (req, res, next) => {
   res.redirect("/user/login");
 };
 
-router.get("/", (req, res) => {
-  Event.find({}, (err, events) => {
+router.get("/:pageNum?", (req, res) => {
+  let pageNum = req.params.pageNum;
+  if (req.params.pageNum < 1) pageNum = 1;
+  let size = 6;
+  let q = {
+    skip: size * (pageNum - 1),
+    limit: size,
+  };
+  let totalDocs = 0;
+  Event.countDocuments({}, (err, total) => {
     if (err) console.log(err);
-    else {
-      res.render("event/index.ejs", {
-        events: events,
-        success_msg: req.flash("success_msg"),
-      });
-    }
+  }).then((response) => {
+    totalDocs = response;
+    Event.find({}, {}, q, (err, events) => {
+      if (err) console.log(err);
+      else {
+        res.render("event/index.ejs", {
+          events: events,
+          success_msg: req.flash("success_msg"),
+          total: totalDocs,
+          size: size,
+          pageNum: pageNum,
+        });
+      }
+    });
   });
 });
 
@@ -83,6 +99,7 @@ router.post(
           contentType: "image/png",
         },
         created_at: Date.now(),
+        creator_id: req.user._id,
       });
       event.save((err) => {
         if (err) console.log(err);
@@ -154,6 +171,7 @@ router.post(
           location: req.body.location,
           date: req.body.date,
           created_at: Date.now(),
+          creator_id: req.user._id,
         },
         (err) => {
           if (err) console.log(err);
@@ -169,11 +187,13 @@ router.post(
     }
   }
 );
-router.get("/:id", (req, res) => {
+router.get("/show/:id", (req, res) => {
   Event.findOne({ _id: req.params.id }, (err, event) => {
     if (err) console.log(err);
     else {
-      res.render("event/show.ejs", { event: event });
+      var creator_id = "";
+      if (req.isAuthenticated()) creator_id = req.user._id;
+      res.render("event/show.ejs", { event: event, id: creator_id });
     }
   });
 });

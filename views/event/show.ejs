@@ -15,13 +15,14 @@
           >
           <h4 class="card-text"><%= event.description%></h4>
           <p class="card-text"><%= event.location%></p>
-
+          <% if(locals.id && id == event.creator_id){%>
           <form method="post" action="/event/delete/<%=event._id%>">
             <a href="/event/edit/<%=event._id%>" class="btn btn-primary"
               >Edit</a
             >
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
+          <%}%>
         </div>
       </div>
     </div>
